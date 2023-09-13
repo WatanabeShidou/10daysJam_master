@@ -23,6 +23,8 @@ public:
 	//　ヘッダー関数
 	void Animation();
 
+	void NumberDraw();
+
 	GameClear* GetGameClear()
 	{
 		return gameClear_;
@@ -327,7 +329,18 @@ private:
 		Novice::LoadTexture("./Resource/images/warpC.png"),
 		Novice::LoadTexture("./Resource/images/switchC.png"),
 	};
-
+	int number[10] = {
+		Novice::LoadTexture("./Resource/images/0.png"),
+		Novice::LoadTexture("./Resource/images/1.png"),
+		Novice::LoadTexture("./Resource/images/2.png"),
+		Novice::LoadTexture("./Resource/images/3.png"),
+		Novice::LoadTexture("./Resource/images/4.png"),
+		Novice::LoadTexture("./Resource/images/5.png"),
+		Novice::LoadTexture("./Resource/images/6.png"),
+		Novice::LoadTexture("./Resource/images/7.png"),
+		Novice::LoadTexture("./Resource/images/8.png"),
+		Novice::LoadTexture("./Resource/images/9.png"),
+	};
 	//イージング用変数
 	float flame_ = 0.0f;
 	float endFlame_ = 80.0f;
@@ -395,10 +408,10 @@ private:
 	int saveShake_ = 0;
 
 	//個数制限
-	int rightBlockLimit = 0;
-	int leftBlockLimit = 0;
-	int upBlockLimit = 0;
-	int downBlockLimit = 0;
+	int rightBlockLimit;
+	int leftBlockLimit;
+	int upBlockLimit;
+	int downBlockLimit;
 
 	// フラグ
 	int back = 0;
@@ -433,6 +446,7 @@ private:
 	int door2 = 0;
 	int warp = 0;
 	int warpR = 0;
+	int efect = 0;
 
 	int space = 0;
 

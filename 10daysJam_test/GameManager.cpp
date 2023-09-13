@@ -11,10 +11,10 @@ void GameManager::Initialize(int stageNo)
 	collisionFlag_ = 1;
 	setShotFlag_ = 0;
 
-	rightBlockLimit = 0;
-	leftBlockLimit = 0;
-	upBlockLimit = 0;
-	downBlockLimit = 0;
+	rightBlockLimit = 3;
+	leftBlockLimit = 4;
+	upBlockLimit = 4;
+	downBlockLimit = 2;
 	switchFlag_ = 0;
 
 	// ステージ１
@@ -108,6 +108,7 @@ void GameManager::Initialize(int stageNo)
 	rightAllow = Novice::LoadTexture("./Resource/images/AllowRight.png");
 	leftAllow = Novice::LoadTexture("./Resource/images/AllowLeft.png");
 	panel = Novice::LoadTexture("./Resource/images/panel.png");
+	efect = Novice::LoadTexture("./Resource/images/efect.png");
 
 	bullet = Novice::LoadTexture("./Resource/images/Bullet.png");
 
@@ -362,6 +363,7 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 				shakeRandY_ = update_;
 				shakeRandY_ = rand() % shakeRandY_ - 12;
 				if (saveFlag_ == 25) {
+					saveShake_ = 1;
 					a += 1;
 					if (a == 5) {
 						update_ -= 1;
@@ -369,6 +371,7 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 					}
 				}
 				if (update_ <= 0) {
+					saveShake_ = 0;
 					shakeFlag_ = 2;
 					update_ = 24;
 				}
@@ -2795,7 +2798,7 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 				}
 			}
 			if (shotFlag_ == 0) {
-				if (leftBlockLimit < 4) {
+				if (leftBlockLimit > 0) {
 					//左ブロック
 					if (mousePosX_ >= selectWX_[0] && mousePosX_ <= selectWX_[0] + selectWR_[0] &&
 						mousePosY_ >= selectWY_[0] && mousePosY_ <= selectWY_[0] + selectWR_[0] && !isWall[0])
@@ -2833,13 +2836,13 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 							map2[leftTY[0]][leftTX[0]] = LEFT;
 							isWall[0] = false;
 							clickFlag_ = 0;
-							leftBlockLimit += 1;
+							leftBlockLimit -= 1;
 							selectWX_[0] = 1085;
 							selectWY_[0] = 165;
 						}
 					}
 				}
-				if (rightBlockLimit < 3) {
+				if (rightBlockLimit > 0) {
 					//右ブロック
 					if (mousePosX_ >= selectWX_[1] && mousePosX_ <= selectWX_[1] + selectWR_[1] &&
 						mousePosY_ >= selectWY_[1] && mousePosY_ <= selectWY_[1] + selectWR_[1] && !isWall[1])
@@ -2877,14 +2880,14 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 							map2[leftTY[1]][leftTX[1]] = RIGHT;
 							isWall[1] = false;
 							clickFlag_ = 0;
-							rightBlockLimit += 1;
+							rightBlockLimit -= 1;
 							selectWX_[1] = 1085;
 							selectWY_[1] = 330;
 						}
 
 					}
 				}
-				if (downBlockLimit < 2) {
+				if (downBlockLimit > 0) {
 					//下ブロック
 					if (mousePosX_ >= selectWX_[2] && mousePosX_ <= selectWX_[2] + selectWR_[2] &&
 						mousePosY_ >= selectWY_[2] && mousePosY_ <= selectWY_[2] + selectWR_[2] && !isWall[2])
@@ -2922,13 +2925,13 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 							map2[leftTY[2]][leftTX[2]] = DOWN;
 							isWall[2] = false;
 							clickFlag_ = 0;
-							downBlockLimit += 1;
+							downBlockLimit -= 1;
 							selectWX_[2] = 1085;
 							selectWY_[2] = 485;
 						}
 					}
 				}
-				if (upBlockLimit < 4) {
+				if (upBlockLimit > 0) {
 					//上ブロック
 					if (mousePosX_ >= selectWX_[3] && mousePosX_ <= selectWX_[3] + selectWR_[3] &&
 						mousePosY_ >= selectWY_[3] && mousePosY_ <= selectWY_[3] + selectWR_[3] && !isWall[3])
@@ -2966,7 +2969,7 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 							map2[leftTY[3]][leftTX[3]] = UP;
 							isWall[3] = false;
 							clickFlag_ = 0;
-							upBlockLimit += 1;
+							upBlockLimit -= 1;
 							selectWX_[3] = 1085;
 							selectWY_[3] = 650;
 						}
@@ -3058,6 +3061,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 		MapReset(stageNo);
 		shotFlag_ = 0;
 		switchFlag_ = 0;
+		rightBlockLimit = 3;
+		leftBlockLimit = 4;
+		upBlockLimit = 4;
+		downBlockLimit = 2;
 	}
 
 	// ゲームクリア処理
@@ -3098,15 +3105,7 @@ void GameManager::Draw(int stageNo)
 				}
 			}
 		}
-		if (shakeFlag_ == 1 || shakeFlag_ == 2) {
-			for (int i = 0; i < 8; i++) {
-				if (efectFlag_[i] == 1) {
-					if (efectTimer_ >= 50) {
-						Novice::DrawSprite((int)efectPosX_[i] + 16, (int)efectPosY_[i] + 16, wall, 0.4f, 0.4f, 0, 0xFF00FFFF);
-					}
-				}
-			}
-		}
+		
 		for (int y = 0; y < mapCountY; y++) {
 			for (int x = 0; x < mapCountX; x++) {
 				// プレイヤー
@@ -3134,6 +3133,15 @@ void GameManager::Draw(int stageNo)
 				if (tutorialMap[y][x] == ENEMY) {
 					Novice::DrawSprite(x * Size - shakeRandX_, y * Size - shakeRandY_, enemy, 1, 1, 0, enemyColor);
 
+				}
+			}
+		}
+		if (shakeFlag_ == 1 && saveShake_ == 0 || shakeFlag_ == 2) {
+			for (int i = 0; i < 8; i++) {
+				if (efectFlag_[i] == 1) {
+					if (efectTimer_ >= 50) {
+						Novice::DrawSprite((int)efectPosX_[i] + 16, (int)efectPosY_[i] + 16, efect, 0.5f, 0.5f, 0, WHITE);
+					}
 				}
 			}
 		}
@@ -3239,15 +3247,7 @@ void GameManager::Draw(int stageNo)
 				}
 			}
 		}
-		if (shakeFlag_ == 1 && saveShake_ == 0 || shakeFlag_ == 2) {
-			for (int i = 0; i < 8; i++) {
-				if (efectFlag_[i] == 1) {
-					if (efectTimer_ >= 50) {
-						Novice::DrawSprite((int)efectPosX_[i] + 16, (int)efectPosY_[i] + 16, wall, 0.3f, 0.3f, 0, WHITE);
-					}
-				}
-			}
-		}
+	
 		for (int y = 0; y < mapCountY; y++) {
 			for (int x = 0; x < mapCountX; x++) {
 				// プレイヤー
@@ -3275,6 +3275,15 @@ void GameManager::Draw(int stageNo)
 				if (map0[y][x] == ENEMY) {
 					Novice::DrawSprite(x * Size - shakeRandX_, y * Size - shakeRandY_, enemy, 1, 1, 0, enemyColor);
 
+				}
+			}
+		}
+		if (shakeFlag_ == 1 && saveShake_ == 0 || shakeFlag_ == 2) {
+			for (int i = 0; i < 8; i++) {
+				if (efectFlag_[i] == 1) {
+					if (efectTimer_ >= 50) {
+						Novice::DrawSprite((int)efectPosX_[i] + 16, (int)efectPosY_[i] + 16, efect, 0.5f, 0.5f, 0, WHITE);
+					}
 				}
 			}
 		}
@@ -3321,15 +3330,7 @@ void GameManager::Draw(int stageNo)
 				}
 			}
 		}
-		if (shakeFlag_ == 1 && saveShake_ == 0 || shakeFlag_ == 2) {
-			for (int i = 0; i < 8; i++) {
-				if (efectFlag_[i] == 1) {
-					if (efectTimer_ >= 50) {
-						Novice::DrawSprite((int)efectPosX_[i] + 16, (int)efectPosY_[i] + 16, wall, 0.3f, 0.3f, 0, WHITE);
-					}
-				}
-			}
-		}
+		
 		for (int y = 0; y < mapCountY; y++) {
 			for (int x = 0; x < mapCountX; x++) {
 				// プレイヤー
@@ -3367,6 +3368,15 @@ void GameManager::Draw(int stageNo)
 				// スイッチ押した後
 				if (map1[y][x] == SWITCH2) {
 					Novice::DrawSprite(x * Size, y * Size, switchR2, 1, 1, 0, WHITE);
+				}
+			}
+		}
+		if (shakeFlag_ == 1 && saveShake_ == 0 || shakeFlag_ == 2) {
+			for (int i = 0; i < 8; i++) {
+				if (efectFlag_[i] == 1) {
+					if (efectTimer_ >= 50) {
+						Novice::DrawSprite((int)efectPosX_[i] + 16, (int)efectPosY_[i] + 16, efect, 0.5f, 0.5f, 0, WHITE);
+					}
 				}
 			}
 		}
@@ -3416,15 +3426,7 @@ void GameManager::Draw(int stageNo)
 				}
 			}
 		}
-		if (shakeFlag_ == 1 && saveShake_ == 0 || shakeFlag_ == 2) {
-			for (int i = 0; i < 8; i++) {
-				if (efectFlag_[i] == 1) {
-					if (efectTimer_ >= 50) {
-						Novice::DrawSprite((int)efectPosX_[i] + 16, (int)efectPosY_[i] + 16, wall, 0.3f, 0.3f, 0, WHITE);
-					}
-				}
-			}
-		}
+	
 		for (int y = 0; y < mapCountY; y++) {
 			for (int x = 0; x < mapCountX; x++) {
 				// プレイヤー
@@ -3493,6 +3495,15 @@ void GameManager::Draw(int stageNo)
 				}
 			}
 		}
+		if (shakeFlag_ == 1 && saveShake_ == 0 || shakeFlag_ == 2) {
+			for (int i = 0; i < 8; i++) {
+				if (efectFlag_[i] == 1) {
+					if (efectTimer_ >= 50) {
+						Novice::DrawSprite((int)efectPosX_[i] + 16, (int)efectPosY_[i] + 16, efect, 0.5f, 0.5f, 0, WHITE);
+					}
+				}
+			}
+		}
 		if (warpFlag == 1 && deadFlag_ == 0) {
 			if (shotFlag_ == 0) {
 				// プレイヤーの向き
@@ -3521,23 +3532,25 @@ void GameManager::Draw(int stageNo)
 		Novice::DrawSprite(selectWX_[1], selectWY_[1], right, 1, 1, 0, selectWColor_[1]);
 		Novice::DrawSprite(selectWX_[2], selectWY_[2], down, 1, 1, 0, selectWColor_[2]);
 		Novice::DrawSprite(selectWX_[3], selectWY_[3], up, 1, 1, 0, selectWColor_[3]);
+		if (warpFlag == 1) {
+			NumberDraw();
+		}
 		if (warpFlag == 0) {
 			Novice::DrawSprite(int(menu_.pos.x), int(menu_.pos.y), blockC[0], 1.0f, 1.f, 0.0f, WHITE);
 		}
 	}
+	
+		//Novice::ScreenPrintf(1000, 0, "map[%d][%d]", leftTY, leftTX);
+		//Novice::ScreenPrintf(1000, 20, "saveMap[%d][%d]", saveLeftTY, saveLeftTX);
 
-	//Novice::ScreenPrintf(1000, 0, "map[%d][%d]", leftTY, leftTX);
-	//Novice::ScreenPrintf(1000, 20, "saveMap[%d][%d]", saveLeftTY, saveLeftTX);
+		if (shotFlag_ == 1) {
+			Novice::DrawSprite(shotPosX_, shotPosY_, bullet, 1.0f, 1.0f, 0.0f, WHITE);
+		}
 
-	if (shotFlag_ == 1) {
-		Novice::DrawSprite(shotPosX_, shotPosY_, bullet, 1.0f, 1.0f, 0.0f, WHITE);
-
-	}
-
-	Novice::ScreenPrintf(0, 0, "flagOut : %d", flagOut_);
-	Novice::ScreenPrintf(0, 20, "flagIn : %d", flagIn_);
-	Novice::ScreenPrintf(0, 40, "textTimer : %d", textTimer_);
-
+	/*	Novice::ScreenPrintf(0, 0, "flagOut : %d", flagOut_);
+		Novice::ScreenPrintf(0, 20, "flagIn : %d", flagIn_);
+		Novice::ScreenPrintf(0, 40, "textTimer : %d", textTimer_);*/
+	
 }
 
 void GameManager::MapReset(int stageNo)
@@ -3591,5 +3604,135 @@ void GameManager::Animation()
 		{
 			spaceScrX_ = 0;
 		}
+	}
+}
+
+void GameManager::NumberDraw()
+{
+	//上ブロック
+	if (upBlockLimit == 0) {
+		Novice::DrawSprite(1165, 684, number[0], 1, 1, 0, WHITE);
+	}
+	if (upBlockLimit == 1) {
+		Novice::DrawSprite(1165, 684, number[1], 1, 1, 0, WHITE);
+	}
+	if (upBlockLimit == 2) {
+		Novice::DrawSprite(1165, 684, number[2], 1, 1, 0, WHITE);
+	}
+	if (upBlockLimit == 3) {
+		Novice::DrawSprite(1165, 684, number[3], 1, 1, 0, WHITE);
+	}
+	if (upBlockLimit == 4) {
+		Novice::DrawSprite(1165, 684, number[4], 1, 1, 0, WHITE);
+	}
+	if (upBlockLimit == 5) {
+		Novice::DrawSprite(1165, 684, number[5], 1, 1, 0, WHITE);
+	}
+	if (upBlockLimit == 6) {
+		Novice::DrawSprite(1165, 684, number[6], 1, 1, 0, WHITE);
+	}
+	if (upBlockLimit == 7) {
+		Novice::DrawSprite(1165, 684, number[7], 1, 1, 0, WHITE);
+	}
+	if (upBlockLimit == 8) {
+		Novice::DrawSprite(1165, 684, number[8], 1, 1, 0, WHITE);
+	}
+	if (upBlockLimit == 9) {
+		Novice::DrawSprite(1165, 684, number[9], 1, 1, 0, WHITE);
+	}
+
+	//上ブロック
+	if (downBlockLimit == 0) {
+		Novice::DrawSprite(1165, 519, number[0], 1, 1, 0, WHITE);
+	}
+	if (downBlockLimit == 1) {
+		Novice::DrawSprite(1165, 519, number[1], 1, 1, 0, WHITE);
+	}
+	if (downBlockLimit == 2) {
+		Novice::DrawSprite(1165, 519, number[2], 1, 1, 0, WHITE);
+	}
+	if (downBlockLimit == 3) {
+		Novice::DrawSprite(1165, 519, number[3], 1, 1, 0, WHITE);
+	}
+	if (downBlockLimit == 4) {
+		Novice::DrawSprite(1165, 519, number[4], 1, 1, 0, WHITE);
+	}
+	if (downBlockLimit == 5) {
+		Novice::DrawSprite(1165, 519, number[5], 1, 1, 0, WHITE);
+	}
+	if (downBlockLimit == 6) {
+		Novice::DrawSprite(1165, 519, number[6], 1, 1, 0, WHITE);
+	}
+	if (downBlockLimit == 7) {
+		Novice::DrawSprite(1165, 519, number[7], 1, 1, 0, WHITE);
+	}
+	if (downBlockLimit == 8) {
+		Novice::DrawSprite(1165, 519, number[8], 1, 1, 0, WHITE);
+	}
+	if (downBlockLimit == 9) {
+		Novice::DrawSprite(1165, 519, number[9], 1, 1, 0, WHITE);
+	}
+
+	//右ブロック
+	if (rightBlockLimit == 0) {
+		Novice::DrawSprite(1165, 364, number[0], 1, 1, 0, WHITE);
+	}
+	if (rightBlockLimit == 1) {
+		Novice::DrawSprite(1165, 364, number[1], 1, 1, 0, WHITE);
+	}
+	if (rightBlockLimit == 2) {
+		Novice::DrawSprite(1165, 364, number[2], 1, 1, 0, WHITE);
+	}
+	if (rightBlockLimit == 3) {
+		Novice::DrawSprite(1165, 364, number[3], 1, 1, 0, WHITE);
+	}
+	if (rightBlockLimit == 4) {
+		Novice::DrawSprite(1165, 364, number[4], 1, 1, 0, WHITE);
+	}
+	if (rightBlockLimit == 5) {
+		Novice::DrawSprite(1165, 364, number[5], 1, 1, 0, WHITE);
+	}
+	if (rightBlockLimit == 6) {
+		Novice::DrawSprite(1165, 364, number[6], 1, 1, 0, WHITE);
+	}
+	if (rightBlockLimit == 7) {
+		Novice::DrawSprite(1165, 364, number[7], 1, 1, 0, WHITE);
+	}
+	if (rightBlockLimit == 8) {
+		Novice::DrawSprite(1165, 364, number[8], 1, 1, 0, WHITE);
+	}
+	if (rightBlockLimit == 9) {
+		Novice::DrawSprite(1165, 364, number[9], 1, 1, 0, WHITE);
+	}
+	//左ブロック
+	if (leftBlockLimit == 0) {
+		Novice::DrawSprite(1165, 199, number[0], 1, 1, 0, WHITE);
+	}
+	if (leftBlockLimit == 1) {
+		Novice::DrawSprite(1165, 199, number[1], 1, 1, 0, WHITE);
+	}
+	if (leftBlockLimit == 2) {
+		Novice::DrawSprite(1165, 199, number[2], 1, 1, 0, WHITE);
+	}
+	if (leftBlockLimit == 3) {
+		Novice::DrawSprite(1165, 199, number[3], 1, 1, 0, WHITE);
+	}
+	if (leftBlockLimit == 4) {
+		Novice::DrawSprite(1165, 199, number[4], 1, 1, 0, WHITE);
+	}
+	if (leftBlockLimit == 5) {
+		Novice::DrawSprite(1165, 199, number[5], 1, 1, 0, WHITE);
+	}
+	if (leftBlockLimit == 6) {
+		Novice::DrawSprite(1165, 199, number[6], 1, 1, 0, WHITE);
+	}
+	if (leftBlockLimit == 7) {
+		Novice::DrawSprite(1165, 199, number[7], 1, 1, 0, WHITE);
+	}
+	if (leftBlockLimit == 8) {
+		Novice::DrawSprite(1165, 199, number[7], 1, 1, 0, WHITE);
+	}
+	if (leftBlockLimit == 9) {
+		Novice::DrawSprite(1165, 199, number[9], 1, 1, 0, WHITE);
 	}
 }
