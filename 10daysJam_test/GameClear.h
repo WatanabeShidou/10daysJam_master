@@ -68,15 +68,17 @@ private:
 	int retry_ = 0;
 	int backSelect_ = 0;
 
-	//ミュージック
-	//const int audioHandle_[5]
-	//{
-	//	Novice::LoadAudio("./Resource/music/gameOver.wav"), //ゲームオーバー
-	//};
-	//int voiceHandle_[5]
-	//{
-	//	-1,-1,-1,-1,-1
-	//};
+	
+	const int audioHandle_[5]
+	{
+		Novice::LoadAudio("./Resource/music/select.wav"),  //セレクトの音
+		Novice::LoadAudio("./Resource/music/select.wav"),  //セレクトの音
+		Novice::LoadAudio("./Resource/music/start.wav"),  //clickの音
+	};
+	int voiceHandle_[5]
+	{
+		-1,-1,-1,-1,-1
+	};
 
 public:
 

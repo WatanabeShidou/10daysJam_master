@@ -358,11 +358,16 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 			//シェイク
 			if (shakeFlag_ == 1) {
+				if (Novice::IsPlayingAudio(voiceHandle[1]) == 0 || voiceHandle[1] == -1)
+				{
+					voiceHandle[1] = Novice::PlayAudio(audioHandle[1], 0, 0.1f);
+				}
 				shakeRandX_ = update_;
 				shakeRandX_ = rand() % shakeRandX_ - 12;
 				shakeRandY_ = update_;
 				shakeRandY_ = rand() % shakeRandY_ - 12;
 				if (saveFlag_ == 25) {
+					Novice::StopAudio(voiceHandle[1]);
 					saveShake_ = 1;
 					a += 1;
 					if (a == 5) {
@@ -371,6 +376,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 					}
 				}
 				if (update_ <= 0) {
+					if (Novice::IsPlayingAudio(voiceHandle[2]) == 0 || voiceHandle[2] == -1)
+					{
+						voiceHandle[2] = Novice::PlayAudio(audioHandle[2], 0, 0.1f);
+					}
 					saveShake_ = 0;
 					shakeFlag_ = 2;
 					update_ = 24;
@@ -419,6 +428,7 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 					}
 				}
 				if (enemyColor <= -255) {
+					Novice::StopAudio(voiceHandle[2]);
 					enemyColor = -255;
 					shakeFlag_ = 3;
 				}
@@ -750,14 +760,18 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 			}
 			if (shotFlag_ == 0) {
 				//左ブロック
-
 				if (mousePosX_ >= selectWX_[0] && mousePosX_ <= selectWX_[0] + selectWR_[0] &&
 					mousePosY_ >= selectWY_[0] && mousePosY_ <= selectWY_[0] + selectWR_[0] && !isWall[0])
 				{
+					if (Novice::IsPlayingAudio(voiceHandle[6]) == 0 || voiceHandle[6] == -1)
+					{
+						voiceHandle[6] = Novice::PlayAudio(audioHandle[6], 0, 0.1f);
+					}
 					selectWColor_[0] = RED;
 				}
 				else
 				{
+					Novice::StopAudio(voiceHandle[6]);
 					selectWColor_[0] = WHITE;
 				}
 				if (clickFlag_ == 0) {
@@ -785,6 +799,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 					if (Novice::IsPressMouse(1) && backColor_[leftTY[0]][leftTX[0]] == RED && tutorialMap[leftTY[0]][leftTX[0]] == BACK)
 					{
+						if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+						{
+							voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+						}
 						tutorialMap[leftTY[0]][leftTX[0]] = LEFT;
 						isWall[0] = false;
 						clickFlag_ = 0;
@@ -796,10 +814,15 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 				if (mousePosX_ >= selectWX_[1] && mousePosX_ <= selectWX_[1] + selectWR_[1] &&
 					mousePosY_ >= selectWY_[1] && mousePosY_ <= selectWY_[1] + selectWR_[1] && !isWall[1])
 				{
+					if (Novice::IsPlayingAudio(voiceHandle[7]) == 0 || voiceHandle[7] == -1)
+					{
+						voiceHandle[7] = Novice::PlayAudio(audioHandle[7], 0, 0.1f);
+					}
 					selectWColor_[1] = RED;
 				}
 				else
 				{
+					Novice::StopAudio(voiceHandle[7]);
 					selectWColor_[1] = WHITE;
 				}
 				if (clickFlag_ == 0) {
@@ -826,22 +849,31 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 					if (Novice::IsPressMouse(1) && backColor_[leftTY[1]][leftTX[1]] == RED && tutorialMap[leftTY[1]][leftTX[1]] == BACK)
 					{
+						if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+						{
+							voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+						}
 						tutorialMap[leftTY[1]][leftTX[1]] = RIGHT;
 						isWall[1] = false;
 						clickFlag_ = 0;
 						selectWX_[1] = 1085;
 						selectWY_[1] = 330;
 					}
-				}
 
+				}
 				//下ブロック
 				if (mousePosX_ >= selectWX_[2] && mousePosX_ <= selectWX_[2] + selectWR_[2] &&
 					mousePosY_ >= selectWY_[2] && mousePosY_ <= selectWY_[2] + selectWR_[2] && !isWall[2])
 				{
+					if (Novice::IsPlayingAudio(voiceHandle[8]) == 0 || voiceHandle[8] == -1)
+					{
+						voiceHandle[8] = Novice::PlayAudio(audioHandle[8], 0, 0.1f);
+					}
 					selectWColor_[2] = RED;
 				}
 				else
 				{
+					Novice::StopAudio(voiceHandle[8]);
 					selectWColor_[2] = WHITE;
 				}
 				if (clickFlag_ == 0) {
@@ -868,6 +900,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 					if (Novice::IsPressMouse(1) && backColor_[leftTY[2]][leftTX[2]] == RED && tutorialMap[leftTY[2]][leftTX[2]] == BACK)
 					{
+						if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+						{
+							voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+						}
 						tutorialMap[leftTY[2]][leftTX[2]] = DOWN;
 						isWall[2] = false;
 						clickFlag_ = 0;
@@ -875,15 +911,19 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 						selectWY_[2] = 485;
 					}
 				}
-
 				//上ブロック
 				if (mousePosX_ >= selectWX_[3] && mousePosX_ <= selectWX_[3] + selectWR_[3] &&
 					mousePosY_ >= selectWY_[3] && mousePosY_ <= selectWY_[3] + selectWR_[3] && !isWall[3])
 				{
+					if (Novice::IsPlayingAudio(voiceHandle[9]) == 0 || voiceHandle[9] == -1)
+					{
+						voiceHandle[9] = Novice::PlayAudio(audioHandle[9], 0, 0.1f);
+					}
 					selectWColor_[3] = RED;
 				}
 				else
 				{
+					Novice::StopAudio(voiceHandle[9]);
 					selectWColor_[3] = WHITE;
 				}
 				if (clickFlag_ == 0) {
@@ -893,7 +933,6 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 						clickFlag_ = 4;
 					}
 				}
-
 				if (clickFlag_ == 4) {
 					if (isWall[3])
 					{
@@ -911,6 +950,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 					if (Novice::IsPressMouse(1) && backColor_[leftTY[3]][leftTX[3]] == RED && tutorialMap[leftTY[3]][leftTX[3]] == BACK)
 					{
+						if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+						{
+							voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+						}
 						tutorialMap[leftTY[3]][leftTX[3]] = UP;
 						isWall[3] = false;
 						clickFlag_ = 0;
@@ -937,8 +980,15 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 			}
 		}
 		// 弾操作
-		if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == 0 && isTutorial_) {
+		if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == 0 && isTutorial_ && shotFlag_ == 0) {
 			shotFlag_ = 1;
+			if (Novice::IsPlayingAudio(voiceHandle[3]) == 0 || voiceHandle[3] == -1)
+			{
+				voiceHandle[3] = Novice::PlayAudio(audioHandle[3], 0, 0.1f);
+			}
+		}
+		if (shotFlag_ == 0) {
+			Novice::StopAudio(voiceHandle[3]);
 		}
 	}
 
@@ -947,8 +997,15 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 	{
 		if (deadFlag_ == 0) {
 			// 弾操作
-			if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == 0) {
+			if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == 0 && shotFlag_ == 0) {
 				shotFlag_ = 1;
+				if (Novice::IsPlayingAudio(voiceHandle[3]) == 0 || voiceHandle[3] == -1)
+				{
+					voiceHandle[3] = Novice::PlayAudio(audioHandle[3], 0, 0.1f);
+				}
+			}
+			if (shotFlag_ == 0) {
+				Novice::StopAudio(voiceHandle[3]);
 			}
 		}
 		if (map0[leftTopY_][leftTopX_] == ENEMY || map0[rightTopY_][rightTopX_] == ENEMY) {
@@ -963,11 +1020,16 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 		//シェイク
 		if (shakeFlag_ == 1) {
+			if (Novice::IsPlayingAudio(voiceHandle[1]) == 0 || voiceHandle[1] == -1)
+			{
+				voiceHandle[1] = Novice::PlayAudio(audioHandle[1], 0, 0.1f);
+			}
 			shakeRandX_ = update_;
 			shakeRandX_ = rand() % shakeRandX_ - 12;
 			shakeRandY_ = update_;
 			shakeRandY_ = rand() % shakeRandY_ - 12;
 			if (saveFlag_ == 25) {
+				Novice::StopAudio(voiceHandle[1]);
 				saveShake_ = 1;
 				a += 1;
 				if (a == 5) {
@@ -976,12 +1038,17 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 				}
 			}
 			if (update_ <= 0) {
+				if (Novice::IsPlayingAudio(voiceHandle[2]) == 0 || voiceHandle[2] == -1)
+				{
+					voiceHandle[2] = Novice::PlayAudio(audioHandle[2], 0, 0.1f);
+				}
 				saveShake_ = 0;
 				shakeFlag_ = 2;
 				update_ = 24;
 			}
 		}
 		if (shakeFlag_ == 2) {
+			
 			enemyColor -= 3;
 			for (int i = 0; i < 8; i++) {
 				if (efectTimer_ >= 50) {
@@ -1024,6 +1091,7 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 				}
 			}
 			if (enemyColor <= -255) {
+				Novice::StopAudio(voiceHandle[2]);
 				enemyColor = -255;
 				shakeFlag_ = 3;
 			}
@@ -1356,14 +1424,18 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 		}
 		if (shotFlag_ == 0) {
 			//左ブロック
-
 			if (mousePosX_ >= selectWX_[0] && mousePosX_ <= selectWX_[0] + selectWR_[0] &&
 				mousePosY_ >= selectWY_[0] && mousePosY_ <= selectWY_[0] + selectWR_[0] && !isWall[0])
 			{
+				if (Novice::IsPlayingAudio(voiceHandle[6]) == 0 || voiceHandle[6] == -1)
+				{
+					voiceHandle[6] = Novice::PlayAudio(audioHandle[6], 0, 0.1f);
+				}
 				selectWColor_[0] = RED;
 			}
 			else
 			{
+				Novice::StopAudio(voiceHandle[6]);
 				selectWColor_[0] = WHITE;
 			}
 			if (clickFlag_ == 0) {
@@ -1391,6 +1463,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 				if (Novice::IsPressMouse(1) && backColor_[leftTY[0]][leftTX[0]] == RED && map0[leftTY[0]][leftTX[0]] == BACK)
 				{
+					if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+					{
+						voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+					}
 					map0[leftTY[0]][leftTX[0]] = LEFT;
 					isWall[0] = false;
 					clickFlag_ = 0;
@@ -1402,10 +1478,15 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 			if (mousePosX_ >= selectWX_[1] && mousePosX_ <= selectWX_[1] + selectWR_[1] &&
 				mousePosY_ >= selectWY_[1] && mousePosY_ <= selectWY_[1] + selectWR_[1] && !isWall[1])
 			{
+				if (Novice::IsPlayingAudio(voiceHandle[7]) == 0 || voiceHandle[7] == -1)
+				{
+					voiceHandle[7] = Novice::PlayAudio(audioHandle[7], 0, 0.1f);
+				}
 				selectWColor_[1] = RED;
 			}
 			else
 			{
+				Novice::StopAudio(voiceHandle[7]);
 				selectWColor_[1] = WHITE;
 			}
 			if (clickFlag_ == 0) {
@@ -1432,22 +1513,31 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 				if (Novice::IsPressMouse(1) && backColor_[leftTY[1]][leftTX[1]] == RED && map0[leftTY[1]][leftTX[1]] == BACK)
 				{
+					if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+					{
+						voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+					}
 					map0[leftTY[1]][leftTX[1]] = RIGHT;
 					isWall[1] = false;
 					clickFlag_ = 0;
 					selectWX_[1] = 1085;
 					selectWY_[1] = 330;
 				}
-			}
 
+			}
 			//下ブロック
 			if (mousePosX_ >= selectWX_[2] && mousePosX_ <= selectWX_[2] + selectWR_[2] &&
 				mousePosY_ >= selectWY_[2] && mousePosY_ <= selectWY_[2] + selectWR_[2] && !isWall[2])
 			{
+				if (Novice::IsPlayingAudio(voiceHandle[8]) == 0 || voiceHandle[8] == -1)
+				{
+					voiceHandle[8] = Novice::PlayAudio(audioHandle[8], 0, 0.1f);
+				}
 				selectWColor_[2] = RED;
 			}
 			else
 			{
+				Novice::StopAudio(voiceHandle[8]);
 				selectWColor_[2] = WHITE;
 			}
 			if (clickFlag_ == 0) {
@@ -1474,6 +1564,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 				if (Novice::IsPressMouse(1) && backColor_[leftTY[2]][leftTX[2]] == RED && map0[leftTY[2]][leftTX[2]] == BACK)
 				{
+					if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+					{
+						voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+					}
 					map0[leftTY[2]][leftTX[2]] = DOWN;
 					isWall[2] = false;
 					clickFlag_ = 0;
@@ -1481,15 +1575,19 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 					selectWY_[2] = 485;
 				}
 			}
-
 			//上ブロック
 			if (mousePosX_ >= selectWX_[3] && mousePosX_ <= selectWX_[3] + selectWR_[3] &&
 				mousePosY_ >= selectWY_[3] && mousePosY_ <= selectWY_[3] + selectWR_[3] && !isWall[3])
 			{
+				if (Novice::IsPlayingAudio(voiceHandle[9]) == 0 || voiceHandle[9] == -1)
+				{
+					voiceHandle[9] = Novice::PlayAudio(audioHandle[9], 0, 0.1f);
+				}
 				selectWColor_[3] = RED;
 			}
 			else
 			{
+				Novice::StopAudio(voiceHandle[9]);
 				selectWColor_[3] = WHITE;
 			}
 			if (clickFlag_ == 0) {
@@ -1499,7 +1597,6 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 					clickFlag_ = 4;
 				}
 			}
-
 			if (clickFlag_ == 4) {
 				if (isWall[3])
 				{
@@ -1517,6 +1614,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 				if (Novice::IsPressMouse(1) && backColor_[leftTY[3]][leftTX[3]] == RED && map0[leftTY[3]][leftTX[3]] == BACK)
 				{
+					if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+					{
+						voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+					}
 					map0[leftTY[3]][leftTX[3]] = UP;
 					isWall[3] = false;
 					clickFlag_ = 0;
@@ -1532,14 +1633,24 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 	{
 		
 		// 弾操作
-		if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == 0) {
+		if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == 0 && shotFlag_ == 0) {
 			shotFlag_ = 1;
+			if (Novice::IsPlayingAudio(voiceHandle[3]) == 0 || voiceHandle[3] == -1)
+			{
+				voiceHandle[3] = Novice::PlayAudio(audioHandle[3], 0, 0.1f);
+			}
 		}
-
+		if (shotFlag_ == 0) {
+			Novice::StopAudio(voiceHandle[3]);
+		}
 		if (switch_ == 0) {
 			switchTimer += 1;
 			if (switchTimer == 160) {
 				flagIn_ = true;
+				if (Novice::IsPlayingAudio(voiceHandle[10]) == 0 || voiceHandle[10] == -1)
+				{
+					voiceHandle[10] = Novice::PlayAudio(audioHandle[10], 0, 0.1f);
+				}
 			}
 
 			// イージング
@@ -1595,11 +1706,16 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 			}
 			//シェイク
 			if (shakeFlag_ == 1) {
+				if (Novice::IsPlayingAudio(voiceHandle[1]) == 0 || voiceHandle[1] == -1)
+				{
+					voiceHandle[1] = Novice::PlayAudio(audioHandle[1], 0, 0.1f);
+				}
 				shakeRandX_ = update_;
 				shakeRandX_ = rand() % shakeRandX_ - 12;
 				shakeRandY_ = update_;
 				shakeRandY_ = rand() % shakeRandY_ - 12;
 				if (saveFlag_ == 25) {
+					Novice::StopAudio(voiceHandle[1]);
 					saveShake_ = 1;
 					a += 1;
 					if (a == 5) {
@@ -1608,6 +1724,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 					}
 				}
 				if (update_ <= 0) {
+					if (Novice::IsPlayingAudio(voiceHandle[2]) == 0 || voiceHandle[2] == -1)
+					{
+						voiceHandle[2] = Novice::PlayAudio(audioHandle[2], 0, 0.1f);
+					}
 					saveShake_ = 0;
 					shakeFlag_ = 2;
 					update_ = 24;
@@ -1656,6 +1776,7 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 					}
 				}
 				if (enemyColor <= -255) {
+					Novice::StopAudio(voiceHandle[2]);
 					enemyColor = -255;
 					shakeFlag_ = 3;
 				}
@@ -1889,7 +2010,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 						if (map1[leftBottomY_][leftBottomX_] == SWITCH1) {
 							//shotFlag_ = 0;
 							switchFlag_ = 1;
-
+							if (Novice::IsPlayingAudio(voiceHandle[5]) == 0 || voiceHandle[5] == -1)
+							{
+								voiceHandle[5] = Novice::PlayAudio(audioHandle[5], 0, 0.1f);
+							}
 							if (map1[y][x] == SWITCH1) {
 								map1[y][x] = SWITCH2;
 							}
@@ -2010,10 +2134,15 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 				if (mousePosX_ >= selectWX_[0] && mousePosX_ <= selectWX_[0] + selectWR_[0] &&
 					mousePosY_ >= selectWY_[0] && mousePosY_ <= selectWY_[0] + selectWR_[0] && !isWall[0])
 				{
+					if (Novice::IsPlayingAudio(voiceHandle[6]) == 0 || voiceHandle[6] == -1)
+					{
+						voiceHandle[6] = Novice::PlayAudio(audioHandle[6], 0, 0.1f);
+					}
 					selectWColor_[0] = RED;
 				}
 				else
 				{
+					Novice::StopAudio(voiceHandle[6]);
 					selectWColor_[0] = WHITE;
 				}
 				if (clickFlag_ == 0) {
@@ -2041,6 +2170,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 					if (Novice::IsPressMouse(1) && backColor_[leftTY[0]][leftTX[0]] == RED && map1[leftTY[0]][leftTX[0]] == BACK)
 					{
+						if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+						{
+							voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+						}
 						map1[leftTY[0]][leftTX[0]] = LEFT;
 						isWall[0] = false;
 						clickFlag_ = 0;
@@ -2052,10 +2185,15 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 				if (mousePosX_ >= selectWX_[1] && mousePosX_ <= selectWX_[1] + selectWR_[1] &&
 					mousePosY_ >= selectWY_[1] && mousePosY_ <= selectWY_[1] + selectWR_[1] && !isWall[1])
 				{
+					if (Novice::IsPlayingAudio(voiceHandle[7]) == 0 || voiceHandle[7] == -1)
+					{
+						voiceHandle[7] = Novice::PlayAudio(audioHandle[7], 0, 0.1f);
+					}
 					selectWColor_[1] = RED;
 				}
 				else
 				{
+					Novice::StopAudio(voiceHandle[7]);
 					selectWColor_[1] = WHITE;
 				}
 				if (clickFlag_ == 0) {
@@ -2082,6 +2220,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 					if (Novice::IsPressMouse(1) && backColor_[leftTY[1]][leftTX[1]] == RED && map1[leftTY[1]][leftTX[1]] == BACK)
 					{
+						if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+						{
+							voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+						}
 						map1[leftTY[1]][leftTX[1]] = RIGHT;
 						isWall[1] = false;
 						clickFlag_ = 0;
@@ -2094,10 +2236,15 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 				if (mousePosX_ >= selectWX_[2] && mousePosX_ <= selectWX_[2] + selectWR_[2] &&
 					mousePosY_ >= selectWY_[2] && mousePosY_ <= selectWY_[2] + selectWR_[2] && !isWall[2])
 				{
+					if (Novice::IsPlayingAudio(voiceHandle[8]) == 0 || voiceHandle[8] == -1)
+					{
+						voiceHandle[8] = Novice::PlayAudio(audioHandle[8], 0, 0.1f);
+					}
 					selectWColor_[2] = RED;
 				}
 				else
 				{
+					Novice::StopAudio(voiceHandle[8]);
 					selectWColor_[2] = WHITE;
 				}
 				if (clickFlag_ == 0) {
@@ -2124,6 +2271,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 					if (Novice::IsPressMouse(1) && backColor_[leftTY[2]][leftTX[2]] == RED && map1[leftTY[2]][leftTX[2]] == BACK)
 					{
+						if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+						{
+							voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+						}
 						map1[leftTY[2]][leftTX[2]] = DOWN;
 						isWall[2] = false;
 						clickFlag_ = 0;
@@ -2135,10 +2286,15 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 				if (mousePosX_ >= selectWX_[3] && mousePosX_ <= selectWX_[3] + selectWR_[3] &&
 					mousePosY_ >= selectWY_[3] && mousePosY_ <= selectWY_[3] + selectWR_[3] && !isWall[3])
 				{
+					if (Novice::IsPlayingAudio(voiceHandle[9]) == 0 || voiceHandle[9] == -1)
+					{
+						voiceHandle[9] = Novice::PlayAudio(audioHandle[9], 0, 0.1f);
+					}
 					selectWColor_[3] = RED;
 				}
 				else
 				{
+					Novice::StopAudio(voiceHandle[9]);
 					selectWColor_[3] = WHITE;
 				}
 				if (clickFlag_ == 0) {
@@ -2165,6 +2321,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 					if (Novice::IsPressMouse(1) && backColor_[leftTY[3]][leftTX[3]] == RED && map1[leftTY[3]][leftTX[3]] == BACK)
 					{
+						if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+						{
+							voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+						}
 						map1[leftTY[3]][leftTX[3]] = UP;
 						isWall[3] = false;
 						clickFlag_ = 0;
@@ -2180,13 +2340,24 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 	if (stageNo == STAGE3)
 	{
 		// 弾操作
-		if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == 0) {
+		if (keys[DIK_SPACE] && preKeys[DIK_SPACE] == 0 && shotFlag_ == 0) {
 			shotFlag_ = 1;
+			if (Novice::IsPlayingAudio(voiceHandle[3]) == 0 || voiceHandle[3] == -1)
+			{
+				voiceHandle[3] = Novice::PlayAudio(audioHandle[3], 0, 0.1f);
+			}
+		}
+		if (shotFlag_ == 0) {
+			Novice::StopAudio(voiceHandle[3]);
 		}
 
 		if (warpFlag == 0) {
 			warpTimer += 1;
 			if (warpTimer == 160) {
+				if (Novice::IsPlayingAudio(voiceHandle[10]) == 0 || voiceHandle[10] == -1)
+				{
+					voiceHandle[10] = Novice::PlayAudio(audioHandle[10], 0, 0.1f);
+				}
 				flagIn_ = true;
 			}
 
@@ -2243,11 +2414,16 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 			}
 
 			if (shakeFlag_ == 1) {
+				if (Novice::IsPlayingAudio(voiceHandle[1]) == 0 || voiceHandle[1] == -1)
+				{
+					voiceHandle[1] = Novice::PlayAudio(audioHandle[1], 0, 0.1f);
+				}
 				shakeRandX_ = update_;
 				shakeRandX_ = rand() % shakeRandX_ - 12;
 				shakeRandY_ = update_;
 				shakeRandY_ = rand() % shakeRandY_ - 12;
 				if (saveFlag_ == 25) {
+					Novice::StopAudio(voiceHandle[1]);
 					saveShake_ = 1;
 					a += 1;
 					if (a == 5) {
@@ -2256,6 +2432,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 					}
 				}
 				if (update_ <= 0) {
+					if (Novice::IsPlayingAudio(voiceHandle[2]) == 0 || voiceHandle[2] == -1)
+					{
+						voiceHandle[2] = Novice::PlayAudio(audioHandle[2], 0, 0.1f);
+					}
 					saveShake_ = 0;
 					shakeFlag_ = 2;
 					update_ = 24;
@@ -2304,6 +2484,7 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 					}
 				}
 				if (enemyColor <= -255) {
+					Novice::StopAudio(voiceHandle[2]);
 					enemyColor = -255;
 					shakeFlag_ = 3;
 				}
@@ -2413,7 +2594,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 						}
 						if (map2[leftBottomY_][leftBottomX_] == SWITCH1) {
 							shotFlag_ = 0;
-
+							if (Novice::IsPlayingAudio(voiceHandle[5]) == 0 || voiceHandle[5] == -1)
+							{
+								voiceHandle[5] = Novice::PlayAudio(audioHandle[5], 0, 0.1f);
+							}
 
 							if (switchFlag_ == 2 || switchFlag_ == 3) {
 								switchFlag_ = 3;
@@ -2430,16 +2614,23 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 						if (map2[leftBottomY_][leftBottomX_] == SWITCH3) {
 							shotFlag_ = 0;
 							switchFlag_ = 2;
+							if (Novice::IsPlayingAudio(voiceHandle[5]) == 0 || voiceHandle[5] == -1)
+							{
+								voiceHandle[5] = Novice::PlayAudio(audioHandle[5], 0, 0.1f);
+							}
 							if (map2[y][x] == SWITCH3) {
 								map2[y][x] = SWITCH4;
 							}
 
 						}
 						if (map2[rightBottomY_][rightBottomX_] == WARPPOINT3) {
-
+							if (Novice::IsPlayingAudio(voiceHandle[4]) == 0 || voiceHandle[4] == -1)
+							{
+								voiceHandle[4] = Novice::PlayAudio(audioHandle[4], 0, 0.1f);
+							}
 							if (switchFlag_ == 3) {
 								if (map2[y][x] == WARPPOINT4) {
-
+									
 									shotPosX_ = x * Size;
 									shotPosY_ = y * Size;
 								}
@@ -2484,8 +2675,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 						}
 						if (map2[leftBottomY_][leftBottomX_] == SWITCH1) {
 							shotFlag_ = 0;
-
-
+							if (Novice::IsPlayingAudio(voiceHandle[5]) == 0 || voiceHandle[5] == -1)
+							{
+								voiceHandle[5] = Novice::PlayAudio(audioHandle[5], 0, 0.1f);
+							}
 							if (switchFlag_ == 2 || switchFlag_ == 3) {
 								switchFlag_ = 3;
 							}
@@ -2501,13 +2694,20 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 						if (map2[leftBottomY_][leftBottomX_] == SWITCH3) {
 							shotFlag_ = 0;
 							switchFlag_ = 2;
+							if (Novice::IsPlayingAudio(voiceHandle[5]) == 0 || voiceHandle[5] == -1)
+							{
+								voiceHandle[5] = Novice::PlayAudio(audioHandle[5], 0, 0.1f);
+							}
 							if (map2[y][x] == SWITCH3) {
 								map2[y][x] = SWITCH4;
 							}
 
 						}
 						if (map2[rightBottomY_][rightBottomX_] == WARPPOINT1) {
-
+							if (Novice::IsPlayingAudio(voiceHandle[4]) == 0 || voiceHandle[4] == -1)
+							{
+								voiceHandle[4] = Novice::PlayAudio(audioHandle[4], 0, 0.1f);
+							}
 							if (switchFlag_ == 3) {
 								if (map2[y][x] == WARPPOINT3) {
 
@@ -2575,7 +2775,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 						}
 						if (map2[leftBottomY_][leftBottomX_] == SWITCH1) {
 							shotFlag_ = 0;
-
+							if (Novice::IsPlayingAudio(voiceHandle[5]) == 0 || voiceHandle[5] == -1)
+							{
+								voiceHandle[5] = Novice::PlayAudio(audioHandle[5], 0, 0.1f);
+							}
 
 							if (switchFlag_ == 2 || switchFlag_ == 3) {
 								switchFlag_ = 3;
@@ -2592,6 +2795,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 						if (map2[leftBottomY_][leftBottomX_] == SWITCH3) {
 							shotFlag_ = 0;
 							switchFlag_ = 2;
+							if (Novice::IsPlayingAudio(voiceHandle[5]) == 0 || voiceHandle[5] == -1)
+							{
+								voiceHandle[5] = Novice::PlayAudio(audioHandle[5], 0, 0.1f);
+							}
 							if (map2[y][x] == SWITCH3) {
 								map2[y][x] = SWITCH4;
 							}
@@ -2603,6 +2810,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 						}
 
 						if (map2[leftBottomY_][leftBottomX_] == WARPPOINT1) {
+							if (Novice::IsPlayingAudio(voiceHandle[4]) == 0 || voiceHandle[4] == -1)
+							{
+								voiceHandle[4] = Novice::PlayAudio(audioHandle[4], 0, 0.1f);
+							}
 							if (switchFlag_ == 3) {
 								if (map2[y][x] == WARPPOINT3) {
 
@@ -2658,7 +2869,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 						}
 						if (map2[leftBottomY_][leftBottomX_] == SWITCH1) {
 							shotFlag_ = 0;
-
+							if (Novice::IsPlayingAudio(voiceHandle[5]) == 0 || voiceHandle[5] == -1)
+							{
+								voiceHandle[5] = Novice::PlayAudio(audioHandle[5], 0, 0.1f);
+							}
 
 							if (switchFlag_ == 2 || switchFlag_ == 3) {
 								switchFlag_ = 3;
@@ -2675,12 +2889,20 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 						if (map2[leftBottomY_][leftBottomX_] == SWITCH3) {
 							shotFlag_ = 0;
 							switchFlag_ = 2;
+							if (Novice::IsPlayingAudio(voiceHandle[5]) == 0 || voiceHandle[5] == -1)
+							{
+								voiceHandle[5] = Novice::PlayAudio(audioHandle[5], 0, 0.1f);
+							}
 							if (map2[y][x] == SWITCH3) {
 								map2[y][x] = SWITCH4;
 							}
 
 						}
 						if (map2[leftBottomY_][leftBottomX_] == WARPPOINT1) {
+							if (Novice::IsPlayingAudio(voiceHandle[4]) == 0 || voiceHandle[4] == -1)
+							{
+								voiceHandle[4] = Novice::PlayAudio(audioHandle[4], 0, 0.1f);
+							}
 							if (map2[y][x] == WARPPOINT2) {
 
 								shotPosX_ = x * Size;
@@ -2798,17 +3020,24 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 				}
 			}
 			if (shotFlag_ == 0) {
+				
 				if (leftBlockLimit > 0) {
 					//左ブロック
 					if (mousePosX_ >= selectWX_[0] && mousePosX_ <= selectWX_[0] + selectWR_[0] &&
 						mousePosY_ >= selectWY_[0] && mousePosY_ <= selectWY_[0] + selectWR_[0] && !isWall[0])
 					{
+						if (Novice::IsPlayingAudio(voiceHandle[6]) == 0 || voiceHandle[6] == -1)
+						{
+							voiceHandle[6] = Novice::PlayAudio(audioHandle[6], 0, 0.1f);
+						}
 						selectWColor_[0] = RED;
 					}
 					else
 					{
+						Novice::StopAudio(voiceHandle[6]);
 						selectWColor_[0] = WHITE;
 					}
+					
 					if (clickFlag_ == 0) {
 						if (selectWColor_[0] == RED && Novice::IsPressMouse(0))
 						{
@@ -2833,6 +3062,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 						if (Novice::IsPressMouse(1) && backColor_[leftTY[0]][leftTX[0]] == RED && map2[leftTY[0]][leftTX[0]] == BACK)
 						{
+							if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+							{
+								voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+							}
 							map2[leftTY[0]][leftTX[0]] = LEFT;
 							isWall[0] = false;
 							clickFlag_ = 0;
@@ -2847,12 +3080,18 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 					if (mousePosX_ >= selectWX_[1] && mousePosX_ <= selectWX_[1] + selectWR_[1] &&
 						mousePosY_ >= selectWY_[1] && mousePosY_ <= selectWY_[1] + selectWR_[1] && !isWall[1])
 					{
+						if (Novice::IsPlayingAudio(voiceHandle[7]) == 0 || voiceHandle[7] == -1)
+						{
+							voiceHandle[7] = Novice::PlayAudio(audioHandle[7], 0, 0.1f);
+						}
 						selectWColor_[1] = RED;
 					}
 					else
 					{
+						Novice::StopAudio(voiceHandle[7]);
 						selectWColor_[1] = WHITE;
 					}
+					
 					if (clickFlag_ == 0) {
 						if (selectWColor_[1] == RED && Novice::IsPressMouse(0))
 						{
@@ -2877,6 +3116,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 						if (Novice::IsPressMouse(1) && backColor_[leftTY[1]][leftTX[1]] == RED && map2[leftTY[1]][leftTX[1]] == BACK)
 						{
+							if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+							{
+								voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+							}
 							map2[leftTY[1]][leftTX[1]] = RIGHT;
 							isWall[1] = false;
 							clickFlag_ = 0;
@@ -2892,12 +3135,18 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 					if (mousePosX_ >= selectWX_[2] && mousePosX_ <= selectWX_[2] + selectWR_[2] &&
 						mousePosY_ >= selectWY_[2] && mousePosY_ <= selectWY_[2] + selectWR_[2] && !isWall[2])
 					{
+						if (Novice::IsPlayingAudio(voiceHandle[8]) == 0 || voiceHandle[8] == -1)
+						{
+							voiceHandle[8] = Novice::PlayAudio(audioHandle[8], 0, 0.1f);
+						}
 						selectWColor_[2] = RED;
 					}
 					else
 					{
+						Novice::StopAudio(voiceHandle[8]);
 						selectWColor_[2] = WHITE;
 					}
+					
 					if (clickFlag_ == 0) {
 						if (selectWColor_[2] == RED && Novice::IsPressMouse(0))
 						{
@@ -2922,6 +3171,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 						if (Novice::IsPressMouse(1) && backColor_[leftTY[2]][leftTX[2]] == RED && map2[leftTY[2]][leftTX[2]] == BACK)
 						{
+							if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+							{
+								voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+							}
 							map2[leftTY[2]][leftTX[2]] = DOWN;
 							isWall[2] = false;
 							clickFlag_ = 0;
@@ -2936,12 +3189,18 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 					if (mousePosX_ >= selectWX_[3] && mousePosX_ <= selectWX_[3] + selectWR_[3] &&
 						mousePosY_ >= selectWY_[3] && mousePosY_ <= selectWY_[3] + selectWR_[3] && !isWall[3])
 					{
+						if (Novice::IsPlayingAudio(voiceHandle[9]) == 0 || voiceHandle[9] == -1)
+						{
+							voiceHandle[9] = Novice::PlayAudio(audioHandle[9], 0, 0.1f);
+						}
 						selectWColor_[3] = RED;
 					}
 					else
 					{
+						Novice::StopAudio(voiceHandle[9]);
 						selectWColor_[3] = WHITE;
 					}
+					
 					if (clickFlag_ == 0) {
 						if (selectWColor_[3] == RED && Novice::IsPressMouse(0))
 						{
@@ -2966,6 +3225,10 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 
 						if (Novice::IsPressMouse(1) && backColor_[leftTY[3]][leftTX[3]] == RED && map2[leftTY[3]][leftTX[3]] == BACK)
 						{
+							if (Novice::IsPlayingAudio(voiceHandle[0]) == 0 || voiceHandle[0] == -1)
+							{
+								voiceHandle[0] = Novice::PlayAudio(audioHandle[0], 0, 0.1f);
+							}
 							map2[leftTY[3]][leftTX[3]] = UP;
 							isWall[3] = false;
 							clickFlag_ = 0;
@@ -3171,8 +3434,7 @@ void GameManager::Draw(int stageNo)
 		Novice::DrawSprite(selectWX_[2], selectWY_[2], down, 1, 1, 0, selectWColor_[2]);
 		Novice::DrawSprite(selectWX_[3], selectWY_[3], up, 1, 1, 0, selectWColor_[3]);
 		// チュートリアルテキスト
-		//　描画
-// チュートリアルテキスト
+
 		if (!isTutorial_)
 		{
 			if (tutorialScene_ == 0)

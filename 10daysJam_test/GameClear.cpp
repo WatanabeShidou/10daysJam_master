@@ -54,28 +54,46 @@ void GameClear::Update(bool flagIn)
 	if (mousePosX_ >= menu_.pos.x + 125 && mousePosX_ <= menu_.pos.x + 125 + menuW_ - 725 && mousePosY_ >= menu_.pos.y + 250 && mousePosY_ <= menu_.pos.y + 250 + menuH_ - 400)
 	{
 		boxColorL_ = BLUE;
+		if (Novice::IsPlayingAudio(voiceHandle_[0]) == 0 || voiceHandle_[0] == -1)
+		{
+			voiceHandle_[0] = Novice::PlayAudio(audioHandle_[0], 0, 0.1f);
+		}
 	}
 	else
 	{
 		boxColorL_ = WHITE;
+		Novice::StopAudio(voiceHandle_[0]);
 	}
 
 	if (mousePosX_ >= menu_.pos.x + 605 && mousePosX_ <= menu_.pos.x + 605 + menuW_ - 725 && mousePosY_ >= menu_.pos.y + 250 && mousePosY_ <= menu_.pos.y + 250 + menuH_ - 400)
 	{
 		boxColorR_ = BLUE;
+		if (Novice::IsPlayingAudio(voiceHandle_[1]) == 0 || voiceHandle_[1] == -1)
+		{
+			voiceHandle_[1] = Novice::PlayAudio(audioHandle_[1], 0, 0.1f);
+		}
 	}
 	else
 	{
 		boxColorR_ = WHITE;
+		Novice::StopAudio(voiceHandle_[1]);
 	}
 
 	if (boxColorL_ == BLUE && Novice::IsPressMouse(0) && !selectR_ && flame_ >= 80)
 	{
+		if (Novice::IsPlayingAudio(voiceHandle_[2]) == 0 || voiceHandle_[2] == -1)
+		{
+			voiceHandle_[2] = Novice::PlayAudio(audioHandle_[2], 0, 0.1f);
+		}
 		selectL_ = true;
 		flagOut_ = true;
 	}
 	if (boxColorR_ == BLUE && Novice::IsPressMouse(0) && !selectL_ && flame_ >= 80)
 	{
+		if (Novice::IsPlayingAudio(voiceHandle_[2]) == 0 || voiceHandle_[2] == -1)
+		{
+			voiceHandle_[2] = Novice::PlayAudio(audioHandle_[2], 0, 0.1f);
+		}
 		selectR_ = true;
 		flagOut_ = true;
 	}
@@ -119,6 +137,6 @@ void GameClear::Draw()
 		Novice::DrawEllipse(sBoxX_, sBoxY_, sBoxR_, sBoxR_, sBoxRotate_, BLACK, kFillModeSolid);
 	}
 
-	Novice::ScreenPrintf(1000, 760, "isClose : %d", isClose_);
+	//Novice::ScreenPrintf(1000, 760, "isClose : %d", isClose_);
 
 }

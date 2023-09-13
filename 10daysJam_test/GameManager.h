@@ -341,6 +341,27 @@ private:
 		Novice::LoadTexture("./Resource/images/8.png"),
 		Novice::LoadTexture("./Resource/images/9.png"),
 	};
+
+	//ミュージック
+	const int audioHandle[11]
+	{
+		Novice::LoadAudio("./Resource/music/blockSet.wav"), //ブロック置いたときの音
+		Novice::LoadAudio("./Resource/music/boom1.wav"),  // 敵が倒れるときの音
+		Novice::LoadAudio("./Resource/music/boom2.wav"),  // 
+		Novice::LoadAudio("./Resource/music/shot.wav"),  //弾の音
+		Novice::LoadAudio("./Resource/music/warp.wav"),  //ワープの音
+		Novice::LoadAudio("./Resource/music/switch.wav"),  //スイッチの音
+		Novice::LoadAudio("./Resource/music/select.wav"),  //ブロックセレクトの音
+		Novice::LoadAudio("./Resource/music/select.wav"),  //ブロックセレクトの音
+		Novice::LoadAudio("./Resource/music/select.wav"),  //ブロックセレクトの音
+		Novice::LoadAudio("./Resource/music/select.wav"),  //ブロックセレクトの音
+		Novice::LoadAudio("./Resource/music/pa.wav"),  //説明表示
+	};
+	int voiceHandle[11]
+	{
+		-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1
+	};
+
 	//イージング用変数
 	float flame_ = 0.0f;
 	float endFlame_ = 80.0f;
