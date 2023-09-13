@@ -20,6 +20,8 @@ public:
 	void Draw(int stageNo);
 
 	void MapReset(int stageNo);
+	//　ヘッダー関数
+	void Animation();
 
 	GameClear* GetGameClear()
 	{
@@ -70,6 +72,12 @@ public:
 	}
 
 private:
+
+	//　ヘッダー変数
+	// アニメーション
+	int spaceScrX_ = 0;
+	int spaceW_ = 64;
+	int animetionTimer_ = 0;
 
 	struct Vector2 {
 		float x;
@@ -417,14 +425,16 @@ private:
 	int switchTimer = 0;
 	int textTimer_ = 0;
 
-	int switchR1 = Novice::LoadTexture("./Resource/images/redswitch1.png");
-	int switchR2 = Novice::LoadTexture("./Resource/images/redswitch2.png");
-	int switchB1 = Novice::LoadTexture("./Resource/images/blueswitch1.png");
-	int switchB2 = Novice::LoadTexture("./Resource/images/blueswitch2.png");
-	int door1 = Novice::LoadTexture("./Resource/images/doorBlock1.png");
-	int door2 = Novice::LoadTexture("./Resource/images/doorBlock2.png");
-	int warp = Novice::LoadTexture("./Resource/images/warppoint1.png");
-	int warpR = Novice::LoadTexture("./Resource/images/warppointR1.png");
+	int switchR1 = 0;
+	int switchR2 = 0;
+	int switchB1 = 0;
+	int switchB2 = 0;
+	int door1 = 0;
+	int door2 = 0;
+	int warp = 0;
+	int warpR = 0;
+
+	int space = 0;
 
 	int panel = 0;
 

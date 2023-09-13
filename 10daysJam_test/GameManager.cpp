@@ -92,6 +92,7 @@ void GameManager::Initialize(int stageNo)
 	// テクスチャ
 
 	BG = Novice::LoadTexture("./Resource/images/BG.png");
+	space = Novice::LoadTexture("./Resource/images/space.png");
 
 	back = Novice::LoadTexture("./Resource/images/backTile.png");
 	wall = Novice::LoadTexture("./Resource/images/metaru.png");                     //壁
@@ -121,6 +122,14 @@ void GameManager::Initialize(int stageNo)
 
 	mission[0] = Novice::LoadTexture("./Resource/images/mission1.png");
 	mission[1] = Novice::LoadTexture("./Resource/images/mission2.png");
+	switchR1 = Novice::LoadTexture("./Resource/images/redswitch1.png");
+	switchR2 = Novice::LoadTexture("./Resource/images/redswitch2.png");
+	switchB1 = Novice::LoadTexture("./Resource/images/blueswitch1.png");
+	switchB2 = Novice::LoadTexture("./Resource/images/blueswitch2.png");
+	door1 = Novice::LoadTexture("./Resource/images/doorBlock1.png");
+	door2 = Novice::LoadTexture("./Resource/images/doorBlock2.png");
+	warp = Novice::LoadTexture("./Resource/images/warppoint1.png");
+	warpR = Novice::LoadTexture("./Resource/images/warppointR1.png");
 
 	enemyColor = 0xFFFFFFFF;
 
@@ -222,6 +231,7 @@ void GameManager::Update(int stageNo, char* keys, char* preKeys)
 		////
 		if (!isTutorial_)
 		{
+			Animation();
 			textTimer_ += 1;
 			if (tutorialScene_ == 0)
 			{
@@ -3153,6 +3163,8 @@ void GameManager::Draw(int stageNo)
 		Novice::DrawSprite(selectWX_[2], selectWY_[2], down, 1, 1, 0, selectWColor_[2]);
 		Novice::DrawSprite(selectWX_[3], selectWY_[3], up, 1, 1, 0, selectWColor_[3]);
 		// チュートリアルテキスト
+		//　描画
+// チュートリアルテキスト
 		if (!isTutorial_)
 		{
 			if (tutorialScene_ == 0)
@@ -3160,18 +3172,22 @@ void GameManager::Draw(int stageNo)
 				if (textCount_ == 0)
 				{
 					Novice::DrawSprite(0, 528, text[0], 1.f, 1.f, 0.f, WHITE);
+					Novice::DrawSpriteRect(1030, 660, spaceScrX_, 0, spaceW_, 64, space, 0.6f, 1.6f, 0.f, WHITE);
 				}
 				if (textCount_ == 1)
 				{
 					Novice::DrawSprite(0, 528, text[1], 1.f, 1.f, 0.f, WHITE);
+					Novice::DrawSpriteRect(1030, 660, spaceScrX_, 0, spaceW_, 64, space, 0.6f, 1.6f, 0.f, WHITE);
 				}
 				if (textCount_ == 2)
 				{
 					Novice::DrawSprite(0, 528, text[2], 1.f, 1.f, 0.f, WHITE);
+					Novice::DrawSpriteRect(1030, 660, spaceScrX_, 0, spaceW_, 64, space, 0.6f, 1.6f, 0.f, WHITE);
 				}
 				if (textCount_ == 3 && countL_ == 1 && countR_ == 1 && countU_ == 1 && countD_ == 1)
 				{
 					Novice::DrawSprite(0, 528, text[3], 1.f, 1.f, 0.f, WHITE);
+					Novice::DrawSpriteRect(1030, 660, spaceScrX_, 0, spaceW_, 64, space, 0.6f, 1.6f, 0.f, WHITE);
 				}
 				Novice::DrawSprite(int(menu_.pos.x), int(menu_.pos.y), mission[0], 1.0f, 1.f, 0.0f, WHITE);
 			}
@@ -3181,18 +3197,22 @@ void GameManager::Draw(int stageNo)
 				if (textCount_ == 4)
 				{
 					Novice::DrawSprite(0, 528, text[4], 1.f, 1.f, 0.f, WHITE);
+					Novice::DrawSpriteRect(1030, 660, spaceScrX_, 0, spaceW_, 64, space, 0.6f, 1.6f, 0.f, WHITE);
 				}
 				if (textCount_ == 5)
 				{
 					Novice::DrawSprite(0, 528, text[5], 1.f, 1.f, 0.f, WHITE);
+					Novice::DrawSpriteRect(1030, 660, spaceScrX_, 0, spaceW_, 64, space, 0.6f, 1.6f, 0.f, WHITE);
 				}
 				if (textCount_ == 6 && deadFlag_ == 2)
 				{
 					Novice::DrawSprite(0, 528, text[6], 1.f, 1.f, 0.f, WHITE);
+					Novice::DrawSpriteRect(1030, 660, spaceScrX_, 0, spaceW_, 64, space, 0.6f, 1.6f, 0.f, WHITE);
 				}
 				if (textCount_ == 7 && deadFlag_ == 2)
 				{
 					Novice::DrawSprite(0, 528, text[7], 1.f, 1.f, 0.f, WHITE);
+					Novice::DrawSpriteRect(1030, 660, spaceScrX_, 0, spaceW_, 64, space, 0.6f, 1.6f, 0.f, WHITE);
 				}
 				Novice::DrawSprite(int(menu_.pos.x), int(menu_.pos.y), mission[1], 1.0f, 1.f, 0.0f, WHITE);
 			}
@@ -3555,6 +3575,21 @@ void GameManager::MapReset(int stageNo)
 			}
 
 			backColor_[y][x] = WHITE;
+		}
+	}
+}
+
+void GameManager::Animation()
+{
+	animetionTimer_ += 1;
+
+	if (animetionTimer_ >= 7)
+	{
+		spaceScrX_ += 64;
+		animetionTimer_ = 0;
+		if (spaceScrX_ >= 320)
+		{
+			spaceScrX_ = 0;
 		}
 	}
 }
